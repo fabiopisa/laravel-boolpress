@@ -25,7 +25,8 @@ class PostRequest extends FormRequest
     {
         return [
             'title'=>'required|max:10',
-            'content'=>'required|min:3'
+            'content'=>'required|min:3',
+            'category_id'=>'nullable|exists:categories,id' //dopo exsist gli dico la tabella e poi la colonna che mi serve
         ];
     }
 
@@ -35,6 +36,7 @@ class PostRequest extends FormRequest
             'content.required'=>'Il contenuto è un campo obbligatorio',
             'content.min'=>'Il testo del contenuto deve avere almeno :min caratteri',
             'title.max'=>'Il testo del titolo deve avere un massimo di :max caratteri',
+            'category_id.exists'=>'Categoria inesistente',
         ];
     }
 }
