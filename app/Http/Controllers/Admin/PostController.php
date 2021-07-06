@@ -111,7 +111,7 @@ class PostController extends Controller
     public function update(PostRequest $request, Post $post)
     {
         $data = $request->all();
-        if($data['slug'] === $post->slug){
+        if($post->title === $post->slug){
             $data['slug'] = $post->slug;
         }else{
             $data['slug']=Str::slug($data['title'],'-');
@@ -130,6 +130,7 @@ class PostController extends Controller
             //se esiste gli faccio il sync dentro post->tags di $data['tags']
             $post->tags()->sync($data['tags']);
         }else{
+            //con il detach se non c'è più il collegamento perchè cambia il tag allora si cancella in tabella post_tag il collegamento
             $post->tags()->detach();
         }
         return redirect()->route('admin.posts.show',$post);

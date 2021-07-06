@@ -1,4 +1,4 @@
-<?php
+h<?php
 
 use App\Tag;
 use Illuminate\Database\Seeder;
