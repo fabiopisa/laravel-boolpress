@@ -26,7 +26,8 @@ class PostRequest extends FormRequest
         return [
             'title'=>'required|max:10',
             'content'=>'required|min:3',
-            'category_id'=>'nullable|exists:categories,id' //dopo exsist gli dico la tabella e poi la colonna che mi serve
+            'category_id'=>'nullable|exists:categories,id', //dopo exsist gli dico la tabella e poi la colonna che mi serve
+            'tags'=>'nullable|exists:tags,id'
         ];
     }
 
@@ -37,6 +38,7 @@ class PostRequest extends FormRequest
             'content.min'=>'Il testo del contenuto deve avere almeno :min caratteri',
             'title.max'=>'Il testo del titolo deve avere un massimo di :max caratteri',
             'category_id.exists'=>'Categoria inesistente',
+            'tags.exists'=>'Nessun tag presente con questo valore',
         ];
     }
 }

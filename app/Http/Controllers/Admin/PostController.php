@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Post;
+use App\Tag;
 use Directory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -31,8 +32,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        $tags= Tag::all();
         $categories = Category::all();
-        return view('admin.posts.create',compact('categories'));
+        return view('admin.posts.create',compact('categories','tags'));
     }
 
     /**
@@ -56,6 +58,14 @@ class PostController extends Controller
         $new_post = new Post();
         $new_post->fill($data);
         $new_post->save();
+        //verifichimao l'esistenza della chiave dentro 
+        //l'array data con questo comando nella condizione if
+        if(array_key_exists('tags',$data)){
+            //uso la funzione attach per dirgli che nel nuovo ost i tags sono dentro
+            //$data['tags'] e quindi di prenderli e pusharli nella tabella 
+            //post_tag di intermezzo
+            $new_post->tags()->attach($data['tags']);
+        }
         return redirect()->route('admin.posts.show',$new_post);
     }
 
@@ -84,8 +94,9 @@ class PostController extends Controller
     {
         $post=Post::find($id);
         $categories = Category::all();
+        $tags= Tag::all();
         if($post){
-            return view('admin.posts.edit', compact('post','categories'));
+            return view('admin.posts.edit', compact('post','categories','tags'));
         }
         abort(404);
     }
@@ -114,6 +125,13 @@ class PostController extends Controller
             }
         }
         $post->update($data);
+        //se la chiave tags esiste dentro l'array $data
+        if(array_key_exists('tags',$data)){
+            //se esiste gli faccio il sync dentro post->tags di $data['tags']
+            $post->tags()->sync($data['tags']);
+        }else{
+            $post->tags()->detach();
+        }
         return redirect()->route('admin.posts.show',$post);
     }
 

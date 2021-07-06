@@ -52,6 +52,27 @@
         </div>
 
         <div class="mt-3">
+          <h3>Tags</h3>
+          @foreach ($tags as $tag )
+            <span class="d-inline-block mr-3">
+              {{-- uso $loop->iteration per avere un contatore in base ai cicli --}}
+              {{-- al name restituiamo un arrai e lo scriviammo in questo modod  --}}
+              <input type="checkbox" 
+              id="tag{{$loop->iteration}}" 
+              name="tags[]" 
+              value="{{$tag->id}}"
+              {{-- faccio un if per dare l'old con la condizione che se nell'array old 'tags' è presente il $tag->id allora do il checked --}}
+              @if (in_array($tag->id,old('tags',[])))
+                checked
+              @endif
+              >
+              <label for="tag{{$loop->iteration}}">{{$tag->name}}</label>
+            </span>
+            
+          @endforeach
+        </div>
+
+        <div class="mt-3">
           <button type="submit" class="btn btn-primary">SUBMIT</button>
           <button type="reset" class="btn btn-secondary">RESET</button>
         </div>

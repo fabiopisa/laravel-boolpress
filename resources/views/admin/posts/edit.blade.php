@@ -23,6 +23,7 @@
             <div class="text-danger">{{$message}}</div>
           @enderror
         </div>
+
         <div class="mt-3">
           <label class="label-control" for="content">Content</label>
           <textarea class="form-control  @error('content') is-invalid @enderror" type="text" name="content" id="content" rows="5">{{old('content',$post->content)}}</textarea>
@@ -45,6 +46,28 @@
           @error('category_id')
             <div class="text-danger">{{$message}}</div>
           @enderror
+        </div>
+
+        <div class="mt-3">
+          <h3>Tags</h3>
+          @foreach ($tags as $tag )
+            <span class="d-inline-block mr-3">
+              <input type="checkbox" 
+              id="tag{{$loop->iteration}}" 
+              name="tags[]" 
+              value="{{$tag->id}}"
+              {{-- nella condizione if gli dico se nell'array old è presente l'id di $tag e ci sono errori mi stampi checked perchè anche se sbaglio altri parametri deve rimanere checked --}}
+              @if (in_array($tag->id,old('tags',[])) && $errors->any())
+                checked
+              {{--nella condizione di else if gli dico che se non ci sono errori e se dentro i tags di post è presente l'id che sto ciclando e lo scrivo così --}}
+              @elseif (!$errors->any() && $post->tags->contains($tag->id))
+                checked
+              @endif
+              >
+              <label for="tag{{$loop->iteration}}">{{$tag->name}}</label>
+            </span>
+            
+          @endforeach
         </div>
 
         <div class="mt-3">
