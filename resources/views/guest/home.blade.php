@@ -3,10 +3,13 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Laravel</title>
+        
+        <title>boolpress</title>
     </head>
     <body>
-        <h1>Salveeeeeee</h1>
-        <h2>Questo è il sito</h2>
+        <div id="app">
+            
+        </div>
+        <script src="{{ asset('js/app.js') }}" defer></script>
     </body>
 </html>

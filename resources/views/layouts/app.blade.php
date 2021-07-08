@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/admin.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -49,11 +49,11 @@
                                 </li>
                             @endif
                         @else
-                            <li>
-                                <a class="nav-link" href="{{route('admin.posts.create')}}">New Post</a>
-                            </li>
-                            <li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{route('admin.posts.index')}}">List Post</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('admin.posts.create')}}">New Post</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
